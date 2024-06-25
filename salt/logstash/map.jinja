@@ -27,3 +27,8 @@
 {%     do LOGSTASH_NODES.append({hostname:node_details[hostname].ip}) %}
 {%   endfor %}
 {% endfor %}
+
+{# Append Kafka input pipeline to searchnodes when Kafka is enabled #}
+{% if GLOBALS.pipeline == 'KAFKA' %}
+{%   do LOGSTASH_MERGED.defined_pipelines.search.append('so/0800_input_kafka.conf.jinja') %}
+{% endif %}
